@@ -39,6 +39,23 @@ mongo.connect(url, function(err, db){
 //Task 3 -- USER EDIT
 mongo.connect(url, function(err, db){
   var collection = db.collection('restaurants');
+  var whichRestaurant = prompt("What restaurant would you like to edit? ");
+	var name = prompt("What would you like to call it? ");
+	var street = prompt("What is its new street address? ");
+	var zip = prompt("What is its new zip code? ");
+	var yelp = prompt("What is its Yelp URL? ");
+	var toUpdate = {
+		"name": name,
+		"address": {
+			"street": street,
+			"zipcode": zip
+		},
+		"yelp": yelp
+	};
+	collection.update({"name": whichRestaurant}, toUpdate);
+	collection.find({"name": name}).toArray(function(err, doc) {
+		console.log(doc);
+	});
 });
 
 //Task 4 -- USER DELETE
